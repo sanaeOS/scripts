@@ -65,6 +65,11 @@ local mob_data = {
 		["Color"] = Color3.fromRGB(30, 255, 0),
 		["TagName"] = "bossman",
 	};
+	["Slizard"] = {
+		["DisplayName"] = "Slizard",
+		["Color"] = Color3.fromRGB(30, 255, 0),
+		["TagName"] = "slizard",
+	};
 };
 
 
@@ -119,6 +124,8 @@ local function get_data_table(mob)
 		dataTable = mob_data["Mageling"]
 	elseif mob.Name:find("SporebossMan") then
 		dataTable = mob_data["SporeBossMan"]
+	elseif mob.Name:find("Slizard") then
+		dataTable = mob_data["Slizard"]
 	end
 
 	if mob:FindFirstChild("Magical") and mob.Magical.Enabled == true  then
@@ -219,6 +226,15 @@ local Window = Rayfield:CreateWindow({
 	Flag = "BossEnabled", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Value)
 		ESP.bossman = Value
+	end,
+ })
+
+ local SlizardButton = Tab:CreateToggle({
+	Name = "ESP :: Slizard the wizard",
+	CurrentValue = false,
+	Flag = "SlizardEnabled", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		ESP.slizard = Value
 	end,
  })
 
