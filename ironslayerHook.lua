@@ -161,37 +161,35 @@ local function get_data_table(mob)
 	local corruptParticle = mob:FindFirstChild("Corrupt"); local corruptLight = mob:FindFirstChild("CorruptL")
 	local legendaryParticle = mob:FindFirstChild("Legendary"); local legendaryLight = mob:FindFirstChild("LegendaryL")
 
-	task.delay(0.25, function()
-		if magicalParticle and magicalLight then
-			if magicalParticle.Enabled or magicalLight.Enabled then
-				dataTable = mob_data["Magical"]
-				sendNotification("MAGICAL MOB SPAWNED", mob.Name, 4)
-			end
+	if magicalParticle and magicalLight then
+		if magicalParticle.Enabled or magicalLight.Enabled then
+			dataTable = mob_data["Magical"]
+			sendNotification("MAGICAL MOB SPAWNED", mob.Name, 4)
 		end
-	
-		if bloodyParticle and bloodyLight then
-			if bloodyParticle.Enabled or bloodyLight.Enabled then
-				dataTable = mob_data["Magical"]
-				sendNotification("BLOODY MOB SPAWNED", mob.Name, 4)
-			end
+	end
+
+	if bloodyParticle and bloodyLight then
+		if bloodyParticle.Enabled or bloodyLight.Enabled then
+			dataTable = mob_data["Magical"]
+			sendNotification("BLOODY MOB SPAWNED", mob.Name, 4)
 		end
-	
-		if corruptParticle and corruptLight then
-			if corruptParticle.Enabled or corruptLight.Enabled then
-				dataTable = mob_data["Corrupt"]
-				sendNotification("CORRUPTED MOB SPAWNED", mob.Name, 4)
-			end
+	end
+
+	if corruptParticle and corruptLight then
+		if corruptParticle.Enabled or corruptLight.Enabled then
+			dataTable = mob_data["Corrupt"]
+			sendNotification("CORRUPTED MOB SPAWNED", mob.Name, 4)
 		end
-	
-		if legendaryParticle and legendaryLight then
-			if legendaryParticle.Enabled or legendaryLight.Enabled then
-				dataTable = mob_data["Legendary"]
-				sendNotification("LEGENDARY MOB SPAWNED", mob.Name, 4)
-			end
+	end
+
+	if legendaryParticle and legendaryLight then
+		if legendaryParticle.Enabled or legendaryLight.Enabled then
+			dataTable = mob_data["Legendary"]
+			sendNotification("LEGENDARY MOB SPAWNED", mob.Name, 4)
 		end
-	
-		return dataTable
-	end)
+	end
+
+	return dataTable
 end
 
 -- // RAYFIELD UI SETUP
