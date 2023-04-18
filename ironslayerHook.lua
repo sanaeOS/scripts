@@ -45,16 +45,6 @@ local mob_data = {
 		["Color"] = Color3.fromRGB(0, 255, 34),
 		["TagName"] = "snoeman",
 	};
-	["Legendary"] = {
-		["DisplayName"] = "LEGENDARY MOB",
-		["Color"] = Color3.fromRGB(187, 255, 0),
-		["TagName"] = "legmob",
-	};
-	["Magical"] = {
-		["DisplayName"] = "MAGICAL MOB",
-		["Color"] = Color3.fromRGB(0, 238, 255),
-		["TagName"] = "magmob",
-	};
 	["Mageling"] = {
 		["DisplayName"] = "Mageling Nigga (I NEED THE ZAZA)",
 		["Color"] = Color3.fromRGB(98, 0, 255),
@@ -81,6 +71,26 @@ local mob_data = {
 		["DisplayName"] = "Niggagitor",
 		["Color"] = Color3.fromRGB(255, 153, 0),
 		["TagName"] = "dragigator",
+	};
+	["Bloody"] = {
+		["DisplayName"] = "BLOODY MOB",
+		["Color"] = Color3.fromRGB(141, 2, 2),
+		["TagName"] = "bloodymob",
+	};
+	["Corrupt"] = {
+		["DisplayName"] = "CORRUPTED MOB",
+		["Color"] = Color3.fromRGB(183, 0, 255),
+		["TagName"] = "corruptmob",
+	};
+	["Legendary"] = {
+		["DisplayName"] = "LEGENDARY MOB",
+		["Color"] = Color3.fromRGB(187, 255, 0),
+		["TagName"] = "legmob",
+	};
+	["Magical"] = {
+		["DisplayName"] = "MAGICAL MOB",
+		["Color"] = Color3.fromRGB(0, 238, 255),
+		["TagName"] = "magmob",
 	};
 };
 
@@ -111,6 +121,8 @@ local function sendNotification(title, content, duration, soundid)
 		Sound:Play()
 		game:GetService("Debris"):AddItem(Sound, 5)
 	 end
+
+	 game:GetService("ReplicatedStorage").Effects.SFX.Heal2:Play()
 end
 
 local function get_data_table(mob)
@@ -129,11 +141,9 @@ local function get_data_table(mob)
 	elseif mob.Name:find("IronSlayer") or mob.Name:find("Iron") or mob.Name:find("Slayer") then
 		dataTable = mob_data["IronSlayer"]
 		sendNotification("SPECIAL MOB SPAWNED", "IRON SLAYER", 4)
-		game:GetService("ReplicatedStorage").Effects.SFX.Roar:Play()
 	elseif mob.Name:find("Snoe") or mob.Name:find("snoe") or mob.Name:find("Snoeman") then
 		dataTable = mob_data["Snoeman"]
 		sendNotification("SPECIAL MOB SPAWNED", "SNOEMAN", 4)
-		game:GetService("ReplicatedStorage").Effects.SFX.SnoemanRoar:Play()
 	elseif mob.Name:find("Mageling") then
 		dataTable = mob_data["Mageling"]
 	elseif mob.Name:find("SporebossMan") then
@@ -146,17 +156,42 @@ local function get_data_table(mob)
 		dataTable = mob_data["Dragigator"]
 	end
 
-	if mob:FindFirstChild("Magical") and mob.Magical.Enabled == true  then
-		dataTable = mob_data["Magical"]
-		sendNotification("MAGICAL MOB SPAWNED", mob.Name, 4)
-	end
+	local magicalParticle = mob:FindFirstChild("Magical"); local magicalLight = mob:FindFirstChild("MagicalL")
+	local bloodyParticle = mob:FindFirstChild("Bloody"); local bloodyLight = mob:FindFirstChild("BloodyL")
+	local corruptParticle = mob:FindFirstChild("Corrupt"); local corruptLight = mob:FindFirstChild("CorruptL")
+	local legendaryParticle = mob:FindFirstChild("Legendary"); local legendaryLight = mob:FindFirstChild("LegendaryL")
 
-	if mob:FindFirstChild("Legendary") and mob.Legendary.Enabled == true then
-		dataTable = mob_data["Legendary"]
-		sendNotification("LEGENDARY MOB SPAWNED", mob.Name, 4)
-	end
-
-	return dataTable
+	task.delay(0.25, function()
+		if magicalParticle and magicalLight then
+			if magicalParticle.Enabled or magicalLight.Enabled then
+				dataTable = mob_data["Magical"]
+				sendNotification("MAGICAL MOB SPAWNED", mob.Name, 4)
+			end
+		end
+	
+		if bloodyParticle and bloodyLight then
+			if bloodyParticle.Enabled or bloodyLight.Enabled then
+				dataTable = mob_data["Magical"]
+				sendNotification("BLOODY MOB SPAWNED", mob.Name, 4)
+			end
+		end
+	
+		if corruptParticle and corruptLight then
+			if corruptParticle.Enabled or corruptLight.Enabled then
+				dataTable = mob_data["Corrupt"]
+				sendNotification("CORRUPTED MOB SPAWNED", mob.Name, 4)
+			end
+		end
+	
+		if legendaryParticle and legendaryLight then
+			if legendaryParticle.Enabled or legendaryLight.Enabled then
+				dataTable = mob_data["Legendary"]
+				sendNotification("LEGENDARY MOB SPAWNED", mob.Name, 4)
+			end
+		end
+	
+		return dataTable
+	end)
 end
 
 -- // RAYFIELD UI SETUP
@@ -218,12 +253,15 @@ local Window = Rayfield:CreateWindow({
 	end,
  })
 
- local LegendaryButton = Tab:CreateToggle({
-	Name = "ESP :: Legendary mobs",
+ local ParticleMobButton = Tab:CreateToggle({
+	Name = "ESP :: Legendary/Bloody/Magical/Corrupt Mobs (Fixed)",
 	CurrentValue = false,
 	Flag = "LegEnabled", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Value)
-		ESP.legmob = Value
+		ESP.legmob = Value;
+		ESP.magmob = Value;
+		ESP.corruptmob = Value;
+		ESP.bloodymob = Value;
 	end,
  })
 
