@@ -76,6 +76,12 @@ local mob_data = {
 		["Color"] = Color3.fromRGB(23, 117, 11),
 		["TagName"] = "budboy",
 	};
+
+	["Dragigator"] = {
+		["DisplayName"] = "Niggagitor",
+		["Color"] = Color3.fromRGB(255, 153, 0),
+		["TagName"] = "dragigator",
+	};
 };
 
 
@@ -123,9 +129,11 @@ local function get_data_table(mob)
 	elseif mob.Name:find("IronSlayer") or mob.Name:find("Iron") or mob.Name:find("Slayer") then
 		dataTable = mob_data["IronSlayer"]
 		sendNotification("SPECIAL MOB SPAWNED", "IRON SLAYER", 4)
+		game:GetService("ReplicatedStorage").Effects.SFX.Roar:Play()
 	elseif mob.Name:find("Snoe") or mob.Name:find("snoe") or mob.Name:find("Snoeman") then
 		dataTable = mob_data["Snoeman"]
 		sendNotification("SPECIAL MOB SPAWNED", "SNOEMAN", 4)
+		game:GetService("ReplicatedStorage").Effects.SFX.SnoemanRoar:Play()
 	elseif mob.Name:find("Mageling") then
 		dataTable = mob_data["Mageling"]
 	elseif mob.Name:find("SporebossMan") then
@@ -134,6 +142,8 @@ local function get_data_table(mob)
 		dataTable = mob_data["Slizard"]
 	elseif mob.Name:find("Budboy") then
 		dataTable = mob_data["Budboy"]
+	elseif mob.Name:find("Dragigator") then
+		dataTable = mob_data["Dragigator"]
 	end
 
 	if mob:FindFirstChild("Magical") and mob.Magical.Enabled == true  then
@@ -156,8 +166,8 @@ local Window = Rayfield:CreateWindow({
 	LoadingTitle = "the void comin",
 	LoadingSubtitle = "by ironslayerkiller9823123",
 	ConfigurationSaving = {
-	   Enabled = true,
-	   FolderName = nil, -- Create a custom folder for your hub/game
+	   Enabled = false,
+	   FolderName = "ironcfg", -- Create a custom folder for your hub/game
 	   FileName = "slayercfg"
 	},
 	Discord = {
@@ -255,6 +265,15 @@ local Window = Rayfield:CreateWindow({
 	end,
  })
 
+ local DragiButton = Tab:CreateToggle({
+	Name = "ESP :: Dragigator",
+	CurrentValue = false,
+	Flag = "DragEnabled", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		ESP.dragigator = Value
+	end,
+ })
+
  --bossman
 
  local Debug_Section = Tab:CreateSection("DEBUG")
@@ -305,7 +324,16 @@ local snail_locations = {
 		color = Color3.fromRGB(251, 255, 0);
 		displayName = "Deadlands"
 	};
+	["Swamp"] = {
+		pos = CFrame.new(-1281.32495, -18.1625061, 2263.92456, 0, 0, -1, 0, 1, 0, 1, 0, 0);
+		color = Color3.fromRGB(0, 255, 0);
+		displayName = "Swamp"
+	};
+
 };
+
+---1281.32495, -18.1625061, 2263.92456, 0, 0, -1, 0, 1, 0, 1, 0, 0
+
 
 local function get_snail()
 	local foundSnail = nil
