@@ -425,7 +425,7 @@ local snailsmanButton = Tab2:CreateToggle({
  })
  -- DO NOT EDIT BELOW THIS LINE
 
- for _, mob in pairs(NPCFolder:GetChildren()) do
+local function CheckMob(mob)
 	local dataTable = get_data_table(mob)
 
 	if dataTable then
@@ -435,24 +435,21 @@ local snailsmanButton = Tab2:CreateToggle({
 			color = dataTable.Color,
 			tagname = dataTable.TagName,
 		};
-	
 		addToESP(workspace.NPCS,finalData)
 	end
 end
 
-NPCFolder.ChildAdded:Connect(function(mob)
-	local dataTable = get_data_table(mob)
 
-	if dataTable then
-		local finalData = {
-			actualname = mob.Name,
-			displayname = dataTable.DisplayName,
-			color = dataTable.Color,
-			tagname = dataTable.TagName,
-		};
-	
-		addToESP(workspace.NPCS,finalData)
-	end
+ for _, mob in pairs(NPCFolder:GetChildren()) do
+	task.delay(0.4, function()
+		CheckMob(mob)
+	end)
+end
+
+NPCFolder.ChildAdded:Connect(function(mob)
+	task.delay(0.4, function()
+		CheckMob(mob)
+	end)
 end)
 
 for _, shrine in pairs(shrineFolder:GetChildren()) do
@@ -476,3 +473,5 @@ for _, infuser in pairs(infuserFolder:GetChildren()) do
 
 	addToESP(workspace.Infusers,finalData)
 end
+
+warn("version: 1")
