@@ -170,7 +170,7 @@ local function get_data_table(mob)
 
 	if bloodyParticle and bloodyLight then
 		if bloodyParticle.Enabled or bloodyLight.Enabled then
-			dataTable = mob_data["Magical"]
+			dataTable = mob_data["Bloody"]
 			sendNotification("BLOODY MOB SPAWNED", mob.Name, 4)
 		end
 	end
@@ -397,6 +397,7 @@ local function updateSnail()
 			tagname = "snails",
 		};
 		addToESP(workspace.Map.Stand,snail_data)
+		return location_name
 	else
 		local snail_data = {
 			actualname = "Snailsman",
@@ -405,13 +406,15 @@ local function updateSnail()
 			tagname = "snails",
 		};
 		addToESP(workspace.Map.Stand,snail_data)
+		return "Unknown"
 	end
 end
 
 updateSnail()
 
 SnailManPart:GetPropertyChangedSignal("Position"):Connect(function()
-	updateSnail()
+	local newPos = updateSnail()
+	sendNotification("SNAILSMAN LOCATION CHANGED", newPos, 5)
 end)
 
 local Extra_Section2 = Tab2:CreateSection("Extras")
@@ -474,4 +477,4 @@ for _, infuser in pairs(infuserFolder:GetChildren()) do
 	addToESP(workspace.Infusers,finalData)
 end
 
-warn("version: 1")
+warn("version: 2")
