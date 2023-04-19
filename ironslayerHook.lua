@@ -1,16 +1,5 @@
 -- iron slayer hook vBeta xD
 
-pcall(function()
-	game:GetService("ReplicatedStorage").Effects.SFX.SnoemanRoar:Play()
-
-	task.delay(2, function()
-		game:GetService("ReplicatedStorage").Effects.SFX.Roar:Play()
-		task.delay(1, function()
-			game:GetService("ReplicatedStorage").Effects.SFX.Roar2:Play()
-		end)
-	end)
-end)
-
 -- // Libraries
 local ESP = loadstring(game:HttpGet("https://kiriot22.com/releases/ESP.lua"))()
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
@@ -363,8 +352,6 @@ local Window = Rayfield:CreateWindow({
 local StandObject = workspace.Map.Stand
 local SnailManPart = StandObject.Snailsman
 
-
-
 local snail_locations = {
 	["Deadlands"] = {
 		pos = CFrame.new(2373.69995, 277, 2403.8501, -1, 0, 0, 0, 1, 0, 0, 0, -1);
@@ -380,7 +367,6 @@ local snail_locations = {
 };
 
 ---1281.32495, -18.1625061, 2263.92456, 0, 0, -1, 0, 1, 0, 1, 0, 0
-
 
 local function get_snail()
 	local foundSnail = nil
