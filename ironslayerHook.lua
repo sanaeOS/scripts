@@ -1,5 +1,16 @@
 -- iron slayer hook vBeta xD
 
+pcall(function()
+	game:GetService("ReplicatedStorage").Effects.SFX.SnoemanRoar:Play()
+
+	task.delay(2, function()
+		game:GetService("ReplicatedStorage").Effects.SFX.Roar:Play()
+		task.delay(1, function()
+			game:GetService("ReplicatedStorage").Effects.SFX.Roar2:Play()
+		end)
+	end)
+end)
+
 -- // Libraries
 local ESP = loadstring(game:HttpGet("https://kiriot22.com/releases/ESP.lua"))()
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
@@ -412,17 +423,13 @@ end
 
 updateSnail()
 
-SnailManPart:GetPropertyChangedSignal("Position"):Connect(function()
-	local newPos = updateSnail()
-	sendNotification("SNAILSMAN LOCATION CHANGED", newPos, 5)
-end)
-
 local Extra_Section2 = Tab2:CreateSection("Extras")
 
 local snailsmanButton = Tab2:CreateToggle({
 	Name = "Snailsman",
 	CurrentValue = false,
 	Callback = function(Value)
+		updateSnail()
 		ESP["snails"] = Value
 	end,
  })
@@ -477,4 +484,4 @@ for _, infuser in pairs(infuserFolder:GetChildren()) do
 	addToESP(workspace.Infusers,finalData)
 end
 
-warn("version: 2")
+warn("version: 3")
