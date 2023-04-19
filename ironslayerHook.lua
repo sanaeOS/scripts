@@ -92,8 +92,13 @@ local mob_data = {
 		["Color"] = Color3.fromRGB(0, 238, 255),
 		["TagName"] = "magmob",
 	};
+	["DeadlandsMob"] = {
+		["DisplayName"] = "DEADLANDS MOB",
+		["Color"] = Color3.fromRGB(250, 8, 0),
+		["TagName"] = "deadlandsmobs",
+	};
 };
-
+--VoidRoot
 
 local function addToESP(folder,data)
 	ESP:AddObjectListener(folder, { -- Object Path, For example: Workspace.ThisFolder
@@ -154,6 +159,8 @@ local function get_data_table(mob)
 		dataTable = mob_data["Budboy"]
 	elseif mob.Name:find("Dragigator") then
 		dataTable = mob_data["Dragigator"]
+	elseif mob.Name:find("VoidRoot") or mob.Name:find("Bowldur") then
+		dataTable = mob_data["DeadlandsMob"]
 	end
 
 	local magicalParticle = mob:FindFirstChild("Magical"); local magicalLight = mob:FindFirstChild("MagicalL")
@@ -310,8 +317,17 @@ local Window = Rayfield:CreateWindow({
 	end,
  })
 
- --bossman
+ local DeadlandsMobsButton = Tab:CreateToggle({
+	Name = "ESP :: Deadlands Mobs",
+	CurrentValue = false,
+	Flag = "DLMobsEnabled", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		ESP.deadlandsmobs = Value
+	end,
+ })
 
+ --bossman
+ --deadlandsmobs
  local Debug_Section = Tab:CreateSection("DEBUG")
 
  local DestroyButton = Tab:CreateButton({
@@ -470,4 +486,4 @@ for _, infuser in pairs(infuserFolder:GetChildren()) do
 	addToESP(workspace.Infusers,finalData)
 end
 
-warn("version: 3")
+warn("version: 3.1")
