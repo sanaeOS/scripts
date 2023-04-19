@@ -97,6 +97,11 @@ local mob_data = {
 		["Color"] = Color3.fromRGB(250, 8, 0),
 		["TagName"] = "deadlandsmobs",
 	};
+	["Drone"] = {
+		["DisplayName"] = "Drone",
+		["Color"] = Color3.fromRGB(255, 230, 0),
+		["TagName"] = "drone",
+	};
 };
 --VoidRoot
 
@@ -161,6 +166,8 @@ local function get_data_table(mob)
 		dataTable = mob_data["Dragigator"]
 	elseif mob.Name:find("VoidRoot") or mob.Name:find("Bowldur") then
 		dataTable = mob_data["DeadlandsMob"]
+	elseif mob.Name:find("Drone") then
+		dataTable = mob_data["Drone"]
 	end
 
 	local magicalParticle = mob:FindFirstChild("Magical"); local magicalLight = mob:FindFirstChild("MagicalL")
@@ -326,8 +333,27 @@ local Window = Rayfield:CreateWindow({
 	end,
  })
 
+ local PWoofButton = Tab:CreateToggle({
+	Name = "ESP :: Plains Woof (WOOF FUR XDDDDDDDDDDD)",
+	CurrentValue = false,
+	Flag = "pwfEnabled", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		ESP.pwoof = Value
+	end,
+ })
+
+ local DroneButton = Tab:CreateToggle({
+	Name = "ESP :: Drone",
+	CurrentValue = false,
+	Flag = "droneEnabled", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		ESP.drone = Value
+	end,
+ })
+
  --bossman
  --deadlandsmobs
+ --pwoof
  local Debug_Section = Tab:CreateSection("DEBUG")
 
  local DestroyButton = Tab:CreateButton({
