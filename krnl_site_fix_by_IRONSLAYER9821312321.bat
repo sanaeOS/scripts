@@ -1,5 +1,4 @@
 @echo off
-title optimizer genshin
 color 06
 
 @echo [+] flushing dns
