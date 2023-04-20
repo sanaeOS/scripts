@@ -49,7 +49,7 @@ local RayfieldLibrary = {
 			ToggleBackground = Color3.fromRGB(30, 30, 30),
 			ToggleEnabled = Color3.fromRGB(124, 63, 171),
 			ToggleDisabled = Color3.fromRGB(100, 100, 100),
-			ToggleEnabledStroke = Color3.fromRGB(0, 170, 255),
+			ToggleEnabledStroke = Color3.fromRGB(77, 39, 99),
 			ToggleDisabledStroke = Color3.fromRGB(125, 125, 125),
 			ToggleEnabledOuterStroke = Color3.fromRGB(100, 100, 100),
 			ToggleDisabledOuterStroke = Color3.fromRGB(65, 65, 65),
@@ -90,7 +90,7 @@ local RayfieldLibrary = {
 			ToggleDisabled = Color3.fromRGB(100, 22, 23),
 			ToggleEnabledStroke = Color3.fromRGB(17, 255, 0),
 			ToggleDisabledStroke = Color3.fromRGB(65, 8, 8),
-			ToggleEnabledOuterStroke = Color3.fromRGB(0, 170, 0),
+			ToggleEnabledOuterStroke = Color3.fromRGB(77, 39, 99),
 			ToggleDisabledOuterStroke = Color3.fromRGB(170, 0, 0),
 
 			InputBackground = Color3.fromRGB(31, 159, 71),
