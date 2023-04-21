@@ -1,4 +1,4 @@
-local lib = loadstring(game:HttpGet("http://192.168.1.104/lib.lua"))()
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/sanaeOS/scripts/main/lib.lua"))()
 local ESP = loadstring(game:HttpGet("https://kiriot22.com/releases/ESP.lua"))()
 
 ESP.Players = false
@@ -10,7 +10,7 @@ local NPCFolder = workspace:FindFirstChild("NPCS")
 local shrineFolder = workspace:FindFirstChild("Shrines")
 local infuserFolder = workspace:FindFirstChild("Infusers")
 
-local default_link_format = "http://192.168.1.104/"
+local default_link_format = "https://sanaeOS/scripts/main/"
 
 _G.inf_jump = false
 _G.loop_speed = false
